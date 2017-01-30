@@ -1,0 +1,9 @@
+---
+- zypper:
+    name:
+      - mlocate
+    disable_recommends: no  
+    state: present
+  notify:
+    - update locate db
+

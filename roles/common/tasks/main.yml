@@ -1,0 +1,17 @@
+---
+- fail: 
+    msg: OS don't support
+  when:
+    - ansible_distribution not in os_distro
+
+- include: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+
+- lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: ^UseDNS\s.*
+    line: UseDNS yes
+    backup: yes
+  notify:
+    - restart sshd
+
+

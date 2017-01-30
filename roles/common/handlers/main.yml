@@ -1,0 +1,12 @@
+---
+- name: update locate db
+  shell: updatedb
+
+- name: restart sshd
+  service: 
+    name: sshd
+    state: restarted
+    enabled: yes
+
+- name: yum makecache
+  shell: yum makecache

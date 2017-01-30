@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: yes
+  become_method: su
+  tags: 
+    - httpd
+  roles:
+    - common
+
+#- hosts: httpd
+#  become: yes
+#  become_method: su
+#  gather_facts: False
+#  tags: httpd
+#  roles:
+#    - httpd
+#

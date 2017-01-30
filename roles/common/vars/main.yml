@@ -1,0 +1,7 @@
+---
+os_distro:
+  - RedHat
+  - CentOS
+  - SLES
+  - openSUSE Leap
+
