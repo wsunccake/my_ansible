@@ -15,14 +15,32 @@
     state: present
 
 - yum:
-    name:
-      - python2-pip
-      - bash-completion
-      - bash-completion-extras
-      - mlocate
+    name: "{{ item }}"
     state: installed
   notify:
     - update locate db
+  with_items: '{{ redhat_packages }}'
+
+#- yum:
+#    name: "{{ item }}"
+#  with_items:
+#    - python2-pip
+#    - bash-completion
+#    - bash-completion-extras
+#    - mlocate
+#    state: installed
+#  notify:
+#    - update locate db
+#
+#- yum:
+#    name:
+#      - python2-pip
+#      - bash-completion
+#      - bash-completion-extras
+#      - mlocate
+#    state: installed
+#  notify:
+#    - update locate db
 
 - lineinfile:
     dest: /etc/selinux/config 

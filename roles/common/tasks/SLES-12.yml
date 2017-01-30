@@ -1,9 +1,25 @@
 ---
+- zypper_repository:
+    name: SLES
+    repo: '{{ repo_url }}'
+    auto_import_keys: yes
+  when:
+    - repo_url is defined
+
+- zypper_repository:
+    name: '{{ item.name }}'
+    repo: '{{ item.repo }}'
+    auto_import_keys: yes
+  with_items: '{{ opensuse_repo12_2 }}'
+  when:
+    - ansible_distribution_version == '12.2'
+    - opensuse_repo12_2 is defined
+ 
 - zypper:
-    name:
-      - mlocate
+    name: '{{ item }}'
     disable_recommends: no  
     state: present
   notify:
     - update locate db
+  with_items: '{{ sles_packages }}'
 

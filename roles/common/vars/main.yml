@@ -5,3 +5,21 @@ os_distro:
   - SLES
   - openSUSE Leap
 
+redhat_packages:
+  - bash-completion
+  - bash-completion-extras
+  - python2-pip
+  - mlocate
+ 
+sles_packages:
+  - bash-completion
+  - python-pip
+  - mlocate
+
+opensuse_repo12_2:
+  - name: openSUSE-Leap-42.2-Oss
+    repo: http://download.opensuse.org/distribution/leap/42.2/repo/oss/  
+  - name: openSUSE-Leap-42.2-Non-Oss
+    repo: http://download.opensuse.org/distribution/leap/42.2/repo/non-oss/
+
+#public_key:

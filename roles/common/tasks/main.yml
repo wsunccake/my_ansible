@@ -14,4 +14,20 @@
   notify:
     - restart sshd
 
+- file:
+    path: ~/.ssh
+    state: directory
+    mode: 0700
+    backup: yes
 
+- file:
+    path: ~/.ssh/authorized_keys
+    state: touch
+    backup: yes
+
+- lineinfile:
+    dest: ~/.ssh/authorized_keys
+    line: '{{ public_key }}'
+    mode: 0600
+  when:
+    - public_key is defined
