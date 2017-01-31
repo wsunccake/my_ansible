@@ -1,0 +1,8 @@
+---
+cobbler_server: 192.168.100.1
+cobbler_next_server: 192.168.100.1
+cobbler_default_password_crypted: $1$WIC1MZ.Z$0jmVe/JwGVzapXzmFXm8V0
+
+dnsmasq_ip_start: 192.168.100.50
+dnsmasq_ip_end: 192.168.100.100
+dnsmasq_subnet_mask: 255.255.255.0

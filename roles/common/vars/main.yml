@@ -16,10 +16,24 @@ sles_packages:
   - python-pip
   - mlocate
 
-opensuse_repo12_2:
+centos7_repo:
+  - file: CentOS-Base
+    name: base
+    description: CentOS-$releasever - Base
+    mirrorlist: http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os&infra=$infra
+  - file: CentOS-Base
+    name: updates
+    description: CentOS-$releasever - Updates
+    mirrorlist: http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates&infra=$infra
+  - file: CentOS-Base
+    name: extras
+    description: CentOS-$releasever - Extras
+    mirrorlist: http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=extras&infra=$infra
+
+opensuse42_2_repo:
   - name: openSUSE-Leap-42.2-Oss
     repo: http://download.opensuse.org/distribution/leap/42.2/repo/oss/  
   - name: openSUSE-Leap-42.2-Non-Oss
     repo: http://download.opensuse.org/distribution/leap/42.2/repo/non-oss/
 
-#public_key:
+public_key: ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA9B2XVAYRe9qdVNSm095YXMXlfB3KfGqQN53RaFNPgh31flqkkHLR3WDI+DUqQuRonqtqWIuTyHA87ElQ6knr1xBI0bTSZemmZEy7On6M08YC0dzIiRytEMlKDHwJxQN9XCgIlxIcP9Pq3592yLiOXE+dvrHOUIUcCdYpveucej9lldPfaRIrcp27qEdasPSGYzDcq2EoZxaiTZjGOOPG2QLOtjACNJtovgVXiHzA2S0u9Bk3zr7xm0cpbc4Zd7MgCdMOMouRxCzj8kqV1daTu/+0hdXegrqT0jqsemtB+kiNy6rFHSStxlxOtQsaAbc67iFt3jOsOjNJLKTlAWYo2w== kam@vlab07

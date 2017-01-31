@@ -10,3 +10,6 @@
 
 - name: yum makecache
   shell: yum makecache
+
+- name: setup releasever
+  command:  echo 7 > /etc/yum/vars/releasever

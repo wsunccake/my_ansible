@@ -10,10 +10,10 @@
     name: '{{ item.name }}'
     repo: '{{ item.repo }}'
     auto_import_keys: yes
-  with_items: '{{ opensuse_repo12_2 }}'
+  with_items: '{{ opensuse42_2_repo }}'
   when:
     - ansible_distribution_version == '12.2'
-    - opensuse_repo12_2 is defined
+    - opensuse42_2_repo is defined
  
 - zypper:
     name: '{{ item }}'

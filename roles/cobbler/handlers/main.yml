@@ -1,0 +1,51 @@
+---
+- name: restart httpd
+  service:
+    name: httpd
+    state: restarted
+    enabled: yes
+
+- name: restart dnsmasq
+  service:
+    name: dnsmasq
+    state: restarted
+    enabled: yes
+
+- name: restart rsyncd
+  service:
+    name: rsyncd
+    state: restarted
+    enabled: yes
+
+- name: restart tftp
+  service:
+    name: tftp
+    state: restarted
+    enabled: yes
+
+- name: restart cobblerd
+  service:
+    name: cobblerd
+    state: restarted
+    enabled: yes
+
+- name: enable http firewall
+  shell: firewall-cmd --add-service=http --permanent
+
+- name: enable https firewall
+  shell: firewall-cmd --add-service=https --permanent
+
+- name: enable dhcp firewall
+  shell: firewall-cmd --add-service=dhcp --permanent
+
+- name: enable dns firewall
+  shell: firewall-cmd --add-service=dns --permanent
+
+- name: enable tftp firewall
+  shell: firewall-cmd --add-service=tftp --permanent
+
+- name: reload firewall
+  shell: firewall-cmd --reload
+
+- name: get pxe image
+  shell: cobbler get-loaders

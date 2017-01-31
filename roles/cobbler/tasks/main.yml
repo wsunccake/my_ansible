@@ -1,0 +1,119 @@
+---
+- yum:
+    name:
+      - httpd
+      - dnsmasq
+      - syslinux
+      - createrepo
+      - mkisofs
+      - mod_wsgi
+      - mod_ssl
+      - pykickstart
+      - python-pygments
+      - python-markdown
+      - python-cheetah
+      - python-django
+      - python-netaddr
+      - python2-simplejson
+      - python-urlgrabber
+      - PyYAML
+      - rsync
+      - tftp-server
+      - yum-utils
+    state: installed
+  notify:
+    - enable http firewall
+    - enable https firewall
+    - enable dhcp firewall
+    - enable dns firewall
+    - enable tftp firewall
+    - reload firewall
+    - restart httpd
+    - restart dnsmasq
+    - restart rsyncd
+
+- yum:
+    name:
+      - cobbler
+      - cobbler-web
+    state: installed
+  notify:
+    - restart cobblerd
+    - get pxe image
+
+
+- lineinfile:
+    dest: /etc/cobbler/settings
+    regexp: '^manage_dhcp:\s.*'
+    line: 'manage_dhcp: 1'
+    backup: no
+
+- lineinfile:
+    dest: /etc/cobbler/settings
+    regexp: '^manage_dns:\s.*'
+    line: 'manage_dns: 1'
+    backup: no
+- replace:
+    dest: /etc/cobbler/modules.conf
+    regexp: 'module = authn_.*'
+    replace: 'module = authn_configfile'
+    backup: no
+
+- replace:
+    dest: /etc/cobbler/modules.conf
+    regexp: 'module = manage_bind'
+    replace: 'module = manage_dnsmasq'
+    backup: no
+
+- replace:
+    dest: /etc/cobbler/modules.conf
+    regexp: 'module = manage_isc'
+    replace: 'module = manage_dnsmasq'
+    backup: no
+
+
+- lineinfile:
+    dest: /etc/cobbler/settings
+    regexp: '^manage_tftpd:\s.*'
+    line: 'manage_tftpd: 1'
+    backup: no
+
+- lineinfile:
+    dest: /etc/cobbler/settings
+    regexp: 'next_server:\s.*'
+    line: 'next_server: {{ cobbler_next_server }}'
+    backup: no
+
+- lineinfile:
+    dest: /etc/cobbler/settings
+    regexp: 'default_password_crypted:\s.*'
+    line: 'default_password_crypted: "{{ cobbler_default_password_crypted }}"'
+    backup: no
+
+- lineinfile:
+    dest: /etc/cobbler/settings
+    regexp: '^server:\s.*'
+    line: 'server: {{ cobbler_server }}'
+    backup: no
+
+
+- lineinfile:
+    dest: /etc/cobbler/dnsmasq.template
+    regexp: '^dhcp-range=.*'
+    line: 'dhcp-range={{ dnsmasq_ip_start }},{{ dnsmasq_ip_end }},{{ dnsmasq_subnet_mask }}'
+    backup: no
+
+- lineinfile:
+    dest: /etc/cobbler/dnsmasq.template
+    regexp: '^.*-tftp'
+    line: 'enable-tftp'
+    backup: no
+
+- lineinfile:
+    dest: /etc/cobbler/dnsmasq.template
+    regexp: '^tftp-root=.*'
+    line: 'tftp-root=/var/lib/tftpboot'
+    backup: no
+
+- shell: cobbler check
+- shell: cobbler sync
