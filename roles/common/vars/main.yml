@@ -5,6 +5,8 @@ os_distro:
   - SLES
   - openSUSE Leap
 
+reboot_timeout: 300
+
 redhat_packages:
   - bash-completion
   - bash-completion-extras

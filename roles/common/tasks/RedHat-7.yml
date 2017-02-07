@@ -57,9 +57,30 @@
 #  notify:
 #    - update locate db
 
-- lineinfile:
+- name: update selinux config
+  lineinfile:
     dest: /etc/selinux/config 
     regexp: ^SELINUX=.*
     line: SELINUX=disabled
-    backup: yes
+    backup: no
+  register: selinux_config
+
+- name: reboot system
+  shell: sleep 2 && shutdown -r now "ansible trigger to reboot"
+  async: 1
+  poll: 0
+  ignore_errors: true
+  when: selinux_config.changed
+
+- name: wait for system come back
+  local_action:
+    module: wait_for
+      host={{ inventory_hostname }}
+      port=22
+      delay=3
+      timeout={{ reboot_time }}
+      state=started
+  ignore_errors: true
+  when: selinux_config.changed
+
 

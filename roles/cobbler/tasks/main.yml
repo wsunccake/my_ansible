@@ -32,6 +32,8 @@
     - restart dnsmasq
     - restart rsyncd
 
+- meta: flush_handlers
+
 - yum:
     name:
       - cobbler
@@ -41,8 +43,10 @@
     - restart cobblerd
     - get pxe image
 
+- meta: flush_handlers
 
-- lineinfile:
+- name: update cobbler settings
+  lineinfile:
     dest: /etc/cobbler/settings
     regexp: '^manage_dhcp:\s.*'
     line: 'manage_dhcp: 1'
@@ -53,24 +57,6 @@
     regexp: '^manage_dns:\s.*'
     line: 'manage_dns: 1'
     backup: no
-- replace:
-    dest: /etc/cobbler/modules.conf
-    regexp: 'module = authn_.*'
-    replace: 'module = authn_configfile'
-    backup: no
-
-- replace:
-    dest: /etc/cobbler/modules.conf
-    regexp: 'module = manage_bind'
-    replace: 'module = manage_dnsmasq'
-    backup: no
-
-- replace:
-    dest: /etc/cobbler/modules.conf
-    regexp: 'module = manage_isc'
-    replace: 'module = manage_dnsmasq'
-    backup: no
-
 
 - lineinfile:
     dest: /etc/cobbler/settings
@@ -97,7 +83,28 @@
     backup: no
 
 
-- lineinfile:
+- name: update cobbler modules.conf
+  replace:
+    dest: /etc/cobbler/modules.conf
+    regexp: 'module = authn_.*'
+    replace: 'module = authn_configfile'
+    backup: no
+
+- replace:
+    dest: /etc/cobbler/modules.conf
+    regexp: 'module = manage_bind'
+    replace: 'module = manage_dnsmasq'
+    backup: no
+
+- replace:
+    dest: /etc/cobbler/modules.conf
+    regexp: 'module = manage_isc'
+    replace: 'module = manage_dnsmasq'
+    backup: no
+
+
+- name: update cobbler dnsmasq.template
+  lineinfile:
     dest: /etc/cobbler/dnsmasq.template
     regexp: '^dhcp-range=.*'
     line: 'dhcp-range={{ dnsmasq_ip_start }},{{ dnsmasq_ip_end }},{{ dnsmasq_subnet_mask }}'

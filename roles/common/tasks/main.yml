@@ -6,13 +6,16 @@
 
 - include: '{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml'
 
-- lineinfile:
+- name: update sshd_config
+  lineinfile:
     dest: /etc/ssh/sshd_config
     regexp: ^UseDNS\s.*
     line: UseDNS yes
     backup: yes
   notify:
     - restart sshd
+
+- meta: flush_handlers
 
 - file:
     path: ~/.ssh
@@ -25,7 +28,8 @@
     state: touch
     backup: yes
 
-- lineinfile:
+- name: add public key
+  lineinfile:
     dest: ~/.ssh/authorized_keys
     line: '{{ public_key }}'
     mode: 0600
