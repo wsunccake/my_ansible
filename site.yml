@@ -1,11 +1,15 @@
 ---
-- hosts: all
+#- hosts: all
+#  become: yes
+#  become_method: su
+#  roles:
+#    - common
+
+- hosts: gui
   become: yes
   become_method: su
-  tags: 
-    - cobbler
   roles:
-    - common
+    - selenium
 
 - hosts: cobbler
   become: yes

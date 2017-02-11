@@ -1,5 +1,6 @@
 ---
-- fail: 
+# tasks file for common
+- fail:
     msg: OS don't support
   when:
     - ansible_distribution not in os_distro

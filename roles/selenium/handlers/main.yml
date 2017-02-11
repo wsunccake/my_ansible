@@ -1,0 +1,7 @@
+---
+# handlers file for gui
+- name: uncompress geckodriver
+  unarchive:
+    src: '{{ geckodriver_file }}'
+    dest: /usr/local/bin
+    remote_src: True

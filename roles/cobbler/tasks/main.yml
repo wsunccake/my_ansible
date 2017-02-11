@@ -1,4 +1,5 @@
 ---
+# tasks file for cobbler
 - yum:
     name:
       - httpd

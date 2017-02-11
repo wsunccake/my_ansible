@@ -10,6 +10,11 @@
   notify:
     - yum makecache
 
+- command:  echo 7 > /etc/yum/vars/releasever
+  when:
+    - ansible_distribution == 'RedHat'
+    - ansible_distribution_major_version == '7'
+
 - yum_repository:
     file: '{{ item.file }}'
     name: '{{ item.name}}'
@@ -21,7 +26,6 @@
     - ansible_distribution == 'RedHat'
     - ansible_distribution_major_version == '7'
   notify:
-    - setup releasever
     - yum makecache
 
 - yum:
@@ -34,6 +38,7 @@
     state: installed
   notify:
     - update locate db
+    - restart gpm
   with_items: '{{ redhat_packages }}'
 
 #- yum:
@@ -82,5 +87,3 @@
       state=started
   ignore_errors: true
   when: selinux_config.changed
-
-

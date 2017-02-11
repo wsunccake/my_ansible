@@ -1,15 +1,19 @@
 ---
+# handlers file for common
 - name: update locate db
   shell: updatedb
 
+- name: restart gpm
+  service:
+    name: gpm
+    state: restarted
+    enabled: yes
+
 - name: restart sshd
-  service: 
+  service:
     name: sshd
     state: restarted
     enabled: yes
 
 - name: yum makecache
   shell: yum makecache
-
-- name: setup releasever
-  command:  echo 7 > /etc/yum/vars/releasever

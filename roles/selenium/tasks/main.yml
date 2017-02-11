@@ -1,0 +1,49 @@
+---
+# tasks file for gui
+- yum:
+    name:
+      - '@graphical-server-environment'
+    state: present
+  when:
+    - ansible_distribution == 'RedHat'
+
+- shell: yum group install -y 'Server with GUI'
+  when:
+    - ansible_distribution == 'RedHat'
+
+- yum:
+    name:
+      - xorg-x11-server-Xvfb
+    state: present
+
+- systemd:
+    name: graphical.target
+    state: restarted
+    daemon_reload: yes
+
+- stat:
+    path: '{{ geckodriver_file }}'
+  register: web_driver_file
+
+- uri:
+    url: '{{ geckodriver_url }}'
+    dest: '{{ geckodriver_file }}'
+  when:
+    - web_driver_file.stat.exists == false
+  notify:
+    - uncompress geckodriver
+
+- pip:
+    name: selenium
+    state: present
+
+- stat:
+    path: '{{ selenium_jar_file }}'
+  register: jar_file
+
+- uri:
+    url: '{{ selenium_jar_url }}'
+    dest: '{{ selenium_jar_file }}'
+  when:
+    - jar_file.stat.exists == false
+

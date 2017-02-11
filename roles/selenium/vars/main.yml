@@ -1,0 +1,7 @@
+---
+# vars file for gui
+geckodriver_file: /tmp/geckodriver-v0.14.0-linux64.tar.gz
+geckodriver_url: https://github.com/mozilla/geckodriver/releases/download/v0.14.0/geckodriver-v0.14.0-linux64.tar.gz
+
+selenium_jar_file: /usr/local/share/selenium-server-standalone.jar
+selenium_jar_url: https://goo.gl/Lyo36k
