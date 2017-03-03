@@ -9,7 +9,7 @@
 
 - shell: yum group install -y 'Server with GUI'
   when:
-    - ansible_distribution == 'RedHat'
+    - ansible_distribution == 'RedHat' or ansible_distribution == 'CentOS'
 
 - yum:
     name:

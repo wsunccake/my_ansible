@@ -5,6 +5,8 @@ os_distro:
   - CentOS
   - SLES
   - openSUSE Leap
+  - Debian
+  - Ubuntu
 
 reboot_timeout: 300
 
@@ -18,6 +20,12 @@ redhat_packages:
 sles_packages:
   - bash-completion
   - python-pip
+  - mlocate
+
+debian_packages:
+  - mlocate
+
+ubuntu_packages:
   - mlocate
 
 centos7_repo:

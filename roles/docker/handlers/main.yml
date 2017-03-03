@@ -1,0 +1,16 @@
+---
+# handlers file for docker
+- name: stop service
+  service:
+    name: docker
+    state: stopped
+    enabled: yes
+
+- name: start service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: rm docker_fodler
+  shell: rm -rf /var/lib/docker

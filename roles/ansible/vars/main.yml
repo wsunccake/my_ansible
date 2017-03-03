@@ -1,0 +1,9 @@
+---
+# vars file for ansible
+os_distro:
+  - RedHat
+  - CentOS
+  - SLES
+  - openSUSE Leap
+  - Debian
+  - Ubuntu

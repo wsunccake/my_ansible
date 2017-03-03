@@ -1,0 +1,28 @@
+---
+- apt_repository:
+    repo: deb http://apt.dockerproject.org/repo debian-jessie main
+    state: present
+
+- apt_key:
+    keyserver: hkp://p80.pool.sks-keyservers.net:80
+    id: 58118E89F3A912897C070ADBF76221572C52609D
+    state: present
+
+- apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- apt:
+    name: docker-engine
+    install_recommends: yes
+    state: present
+
+- lineinfile:
+    dest: /etc/default/docker
+    regexp: ^DOCKER_OPTS=.*
+    line: DOCKER_OPTS='--bip={{ docker_bip }} --storage-opt dm.loopdatasize={{ docker_data_size }} --storage-opt dm.loopmetadatasize={{ docker_meta_size }} --storage-opt dm.basesize={{ docker_base_size }}'
+    backup: no
+  notify:
+    - stop service
+    - rm docker_fodler
+    - start service

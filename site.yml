@@ -1,9 +1,11 @@
 ---
-#- hosts: all
-#  become: yes
-#  become_method: su
-#  roles:
-#    - common
+- hosts: all
+  become: yes
+  become_method: su
+  roles:
+    - common
+#    - ansible
+#    - docker
 
 - hosts: gui
   become: yes

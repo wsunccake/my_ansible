@@ -1,0 +1,15 @@
+---
+- apt_repository:
+    repo: deb http://ftp.de.debian.org/debian jessie main
+    state: present
+
+- apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- apt:
+    name: '{{ item }}'
+    state: present
+  notify:
+    - update locate db
+  with_items: '{{ debian_packages }}'
