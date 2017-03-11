@@ -6,3 +6,5 @@
 
 [cobbler]
 #node1
+
+[my_config]

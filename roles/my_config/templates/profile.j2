@@ -1,0 +1,26 @@
+# My Bourne Again Shell Setup
+
+# Setup LANG
+if [ -z \$DISPLAY ]; then
+  export LANG=POSIX
+  export LC_CTYPE=zh_TW.UTF-8
+  export LC_TIME=POSIX
+#  export LC_MESSAGES=zh_TW.UTF-8 # Display Tranditional Chinese
+
+# Setup Keyborad
+  if [ `uname -s` == "Linux" ]; then
+    TTY=`tty|grep tty >& /dev/null && echo "0" || echo "1"`
+    if [ $TTY == "0" ]; then
+      setleds +num
+      setleds -caps
+      setleds -scroll
+    fi
+  fi
+fi
+
+# Setup bashrc file
+if [ `basename $SHELL` == bash ]; then
+  if [ -f $HOME/.bashrc ]; then
+    source $HOME/.bashrc
+  fi
+fi

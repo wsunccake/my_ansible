@@ -1,0 +1,53 @@
+---
+# tasks file for vim_config
+
+- template:
+    src: profile.j2
+    dest: $HOME/.profile
+    mode: 0644
+    backup: yes
+
+- template:
+    src: bashrc.j2
+    dest: $HOME/.bashrc
+    mode: 0644
+    backup: yes
+
+
+- template:
+    src: alias.j2
+    dest: $HOME/.alias
+    mode: 0644
+    backup: yes
+
+- template:
+    src: toprc.j2
+    dest: $HOME/.toprc
+    mode: 0644
+    backup: yes
+
+- template:
+    src: inputrc.j2
+    dest: $HOME/.inputrc
+    mode: 0644
+    backup: yes
+
+
+- template:
+    src: vimrc.j2
+    dest: $HOME/.vimrc
+    mode: 0644
+    backup: yes
+
+- template:
+    src: gitconfig.j2
+    dest: $HOME/.gitconfig
+    mode: 0644
+    backup: yes
+
+- template:
+    src: screenrc.j2
+    dest: $HOME/.screenrc
+    mode: 0644
+    backup: yes
+

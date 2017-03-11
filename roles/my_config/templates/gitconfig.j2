@@ -1,0 +1,16 @@
+[color]
+        ui = true
+[core]
+        editor = vim
+[merge]
+        tool = vimdiff
+[alias]
+	s = status -s -b -uno
+	commit-show = commit -v -uno
+        branch-all = branch -avv
+
+        log-pretty = log --graph --oneline --decorate --date-order
+#        log-pretty = log --graph --oneline --boundary --decorate --all --date-order
+        log-full= log -C --stat --decorate
+        show-add= show --pretty=fuller
+

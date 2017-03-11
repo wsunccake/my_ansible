@@ -20,3 +20,8 @@
   tags: cobbler
   roles:
     - cobbler
+
+- hosts: my_config
+  become: no
+  roles:
+    - my_config
