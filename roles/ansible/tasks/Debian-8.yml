@@ -9,4 +9,6 @@
 
 - apt:
     name: ansible
+    install_recommends: yes
+    allow_unauthenticated: yes
     state: present

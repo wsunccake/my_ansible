@@ -4,24 +4,25 @@
   become_method: su
   roles:
     - common
-#    - ansible
-#    - docker
 
-- hosts: gui
+- hosts: deploy
   become: yes
   become_method: su
+  tags: deploy
+  roles:
+    - ansible
+    - docker
+#    - cobbler
+
+- hosts: web
+  become: yes
+  become_method: su
+  tags: web
   roles:
     - selenium
 
-- hosts: cobbler
-  become: yes
-  become_method: su
-  gather_facts: False
-  tags: cobbler
-  roles:
-    - cobbler
-
 - hosts: my_config
   become: no
+  tags: my_config
   roles:
     - my_config

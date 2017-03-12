@@ -15,6 +15,7 @@
 - apt:
     name: docker-engine
     install_recommends: yes
+    allow_unauthenticated: yes
     state: present
 
 - lineinfile:

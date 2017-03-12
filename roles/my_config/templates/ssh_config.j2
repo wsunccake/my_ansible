@@ -1,0 +1,14 @@
+Host *
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+
+
+#Host myhost
+#    HostName 127.0.0.1
+#    User root
+#    Port 22
+#    IdentityFile ~/.ssh/id_rsa
+#    ProxyCommand /usr/bin/nc -X 5 -x localhost:9000 %h %p #for BSD
+#    ProxyCommand /usr/bin/connect-proxy -H localhost:9000 %h %p" #for Linux
+
+#Include host.d/*
