@@ -11,8 +11,13 @@
   tags: deploy
   roles:
     - ansible
-    - docker
+#    - docker
 #    - cobbler
+#    - lxc
+#    - sqlite
+#    - pgsql
+#    - mysql
+
 
 - hosts: web
   become: yes

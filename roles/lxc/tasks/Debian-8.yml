@@ -1,0 +1,19 @@
+---
+- apt_repository:
+    repo: deb http://ftp.debian.org/debian jessie-backports main
+    state: present
+
+- apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- apt:
+    name:
+      - lxc
+      - libvirt-bin
+      - dnsmasq-base
+      - debootstrap
+      - ubuntu-archive-keyring
+    install_recommends: yes
+    allow_unauthenticated: yes
+    state: present
