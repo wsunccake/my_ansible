@@ -1,0 +1,14 @@
+---
+- yum:
+    name:
+      - postgresql-server
+      - postgresql
+    state: installed
+
+- shell: postgresql-setup initdb
+
+- name: restart postgresql
+  service:
+    name: postgresql
+    state: restarted
+    enabled: yes

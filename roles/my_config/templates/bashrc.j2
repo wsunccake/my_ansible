@@ -102,10 +102,10 @@ if [ $UID != "0" ]; then
 #  PS1='\[\033[1;33m\]\u\[\033[1;37m\]@\[\033[1;35m\]\h\[\033[1;37m\]:\[\033[1;34m\]\w \[\033[1;37m\]$\[\033[m\] '
 #  PS1='\[\033[1;33m\]\u@\h:\w $\[\033[m\] '
 else
-  Bright_Gray="\[\e[`getEFFECT BRIGHT`;3`getCOLOR GRAYm\]"
-  Bright_Red="\[\e[`getEFFECT BRIGHT`;3`getCOLOR REDm\]"
+  Bright_Gray="\[\e[`getEFFECT BRIGHT`;3`getCOLOR GRAY`m\]"
+  Bright_Red="\[\e[`getEFFECT BRIGHT`;3`getCOLOR RED`m\]"
   Color_End="\[\e[m\]"
-  PS1='\${Bright_Red}\u\${Color_End}\${Bright_Gray}@\${Color_End}\${Bright_Red}\h\${Color_End}\${Bright_Gray}:\${Color_End}\${Bright_Red}\w\${Color_End} \${Bright_Gray}#\${Color_End}\${Color_End} '
+  PS1="${Bright_Red}\u${Color_End}${Bright_Gray}@${Color_End}${Bright_Red}\h${Color_End}${Bright_Gray}:${Color_End}${Bright_Red}\w${Color_End} ${Bright_Gray}#${Color_End}${Color_End} "
 #  PS1='\[\e[1;31m\]\u\[\e[1;37m\]@\[\e[1;35m\]\h\[\e[1;37m\]:\[\e[1;34m\]\w \[\e[1;37m\]#\[\e[m\] '
 #  PS1='\[\e[1;31m\]\h:\w #\[\e[m\] '
 fi

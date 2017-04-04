@@ -1,0 +1,11 @@
+---
+- yum:
+    name: mariadb-server
+    state: installed
+
+
+- name: restart mariadb
+  service:
+    name: mariadb
+    state: restarted
+    enabled: yes

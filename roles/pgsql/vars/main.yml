@@ -2,7 +2,7 @@
 # vars file for pgsql
 os_distro:
 #  - RedHat
-#  - CentOS
+  - CentOS
 #  - SLES
 #  - openSUSE Leap
 #  - Debian

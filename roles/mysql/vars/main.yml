@@ -2,7 +2,7 @@
 # vars file for mysql
 os_distro:
 #  - RedHat
-#  - CentOS
+  - CentOS
 #  - SLES
 #  - openSUSE Leap
 #  - Debian

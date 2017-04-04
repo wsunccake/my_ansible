@@ -24,6 +24,7 @@ sles_packages:
 
 debian_packages:
   - mlocate
+  - curl
 
 ubuntu_packages:
   - mlocate
