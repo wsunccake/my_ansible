@@ -1,0 +1,12 @@
+---
+- yum:
+    name: redis
+    state: present
+
+- service:
+    name: redis
+    state: restarted
+    enabled: yes
+
+#- command: firewall-cmd --permanent --add-port=6379/tcp
+#- command: firewall-cmd --reload

@@ -1,0 +1,26 @@
+---
+- yum:
+    name: erlang
+    state: present
+
+
+- command: rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+#           creates=/etc/pki/rpm-gpg/RPM-GPG-KEY-torproject.org.asc
+
+- yum:
+    name: https://www.rabbitmq.com/releases/rabbitmq-server/v3.6.9/rabbitmq-server-3.6.9-1.el7.noarch.rpm
+    state: present
+
+- service:
+    name: rabbitmq-server
+    state: restarted
+    enabled: yes
+
+- command: rabbitmq-plugins enable rabbitmq_management
+
+#- commamd: firewall-cmd --permanent --add-port=4369/tcp
+#- command: firewall-cmd --permanent --add-port=25672/tcp
+#- command: firewall-cmd --permanent --add-port=5672/tcp
+#- command: firewall-cmd --permanent --add-port=5671/tcp
+#- command: firewall-cmd --permanent --add-port=15672/tcp
+#- command: firewall-cmd --reload

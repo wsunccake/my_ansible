@@ -1,0 +1,15 @@
+---
+- yum:
+    name:
+      - python34
+      - python34-devel
+      - python34-pip
+    state: present
+
+#- service:
+#    name: redis
+#    state: restarted
+#    enabled: yes
+
+#- command: firewall-cmd --permanent --add-port=6379/tcp
+#- command: firewall-cmd --reload
