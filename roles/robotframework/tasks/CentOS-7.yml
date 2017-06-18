@@ -1,0 +1,36 @@
+---
+- yum:
+    name:
+      - epel-release
+    state: present
+
+- shell: yum makecache
+
+- shell: yum group install -y 'Development Tools'
+  when:
+    - ansible_distribution == 'RedHat' or ansible_distribution == 'CentOS'
+
+- name: install dependent package for sshlibrary
+  yum:
+    name:
+      - python-devel
+      - openssl
+      - openssl-libs
+      - openssl-devel
+    state: present
+
+- name: install dependent package for ride
+  yum:
+    name:
+      - wxPython
+    state: present
+
+- pip:
+    name:
+      - robotframework
+      - docutils
+      - robotframework-ride
+      - robotframework-sshlibrary
+      - robotframework-selenium2library
+      - robotframework-SikuliLibrary
+    state: present

@@ -1,5 +1,0 @@
-for RHEL
-ansible-playbook site.yml -v -e 'repo_url=file:///mnt'
-
-for SLES
-ansible-playbook site.yml -v -e 'repo_url=cd:///?devices=/dev/disk/by-id/ata-VBOX_CD-ROM'

@@ -22,12 +22,13 @@
 #    - rabbitmq
 #    - redis
 
-- hosts: web
+- hosts: web_test
   become: yes
   become_method: su
-  tags: web
+  tags: web_test
   roles:
-    - selenium
+#    - selenium
+    - robotframework
 
 - hosts: my_config
   become: no
