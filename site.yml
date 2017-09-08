@@ -5,6 +5,13 @@
   roles:
     - common
 
+- hosts: cluster
+  become: yes
+  become_method: su
+  tags: cluster
+  roles:
+    - kubernetes
+
 - hosts: deploy
   become: yes
   become_method: su
@@ -35,3 +42,4 @@
   tags: my_config
   roles:
     - my_config
+

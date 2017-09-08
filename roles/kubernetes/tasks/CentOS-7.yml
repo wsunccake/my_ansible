@@ -1,0 +1,68 @@
+- yum:
+    name: ntp
+    state: installed
+
+- service:
+    name: ntpd
+    state: restarted
+    enabled: yes
+
+- service:
+    name: firewalld
+    state: stopped
+    enabled: no
+
+- copy:                                                                                                                                                                                       
+    src: kubernetes.repo
+    dest: /etc/yum.repos.d
+    owner: root
+    group: root
+    mode: 0644
+    backup: no
+
+- shell: yum makecache
+
+- shell: sleep 60
+
+- yum:
+    name:
+      - docker
+      - kubelet
+      - kubeadm
+      - kubectl
+      - kubernetes-cni
+    state: installed
+
+- replace:
+    dest: /etc/sysconfig/docker
+    regexp: OPTIONS=.*
+    replace: OPTIONS="--selinux-enabled --log-driver=journald --signature-verification=false --bip={{ docker_bip }} --storage-opt dm.loopdatasize={{ docker_data_size }} --storage-opt dm.loopmetadatasize={{ docker_meta_size }} --storage-opt dm.basesize={{ docker_base_size }}"
+    backup: no
+ 
+- service:
+    name: docker
+    state: stopped
+    enabled: yes
+
+#- shell: rm -rf /var/lib/docker
+
+- service:
+    name: docker
+    state: started
+    enabled: yes
+
+- copy:                                                                                                                                                                                       
+    src: bridge-nf-call-iptables.conf
+    dest: /etc/sysctl.d
+    owner: root
+    group: root
+    mode: 0644
+    backup: no
+
+- shell: sysctl -p
+
+- service:
+    name: kubelet
+    state: started
+    enabled: yes
+

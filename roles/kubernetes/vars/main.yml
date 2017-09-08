@@ -1,12 +1,7 @@
 ---
-# vars file for docker
+# vars file for kubernetes
 os_distro:
-#  - RedHat
   - CentOS
-#  - SLES
-#  - openSUSE Leap
-  - Debian
-  - Ubuntu
 
 docker_bip: 10.253.0.1/24
 docker_data_size: 200G

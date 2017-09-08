@@ -31,6 +31,7 @@
       - docutils
       - robotframework-ride
       - robotframework-sshlibrary
+      - xpath
       - robotframework-selenium2library
       - robotframework-SikuliLibrary
     state: present

@@ -4,6 +4,8 @@
 
 [web_test]
 
+[cluster]
+
 [deploy]
 #node1
 

@@ -1,0 +1,19 @@
+---
+- name: install docker
+  yum:
+    name: '{{ item }}'
+    state: installed
+  with_items:
+    - python2-pip
+    - docker
+
+- replace:
+    dest: /etc/sysconfig/docker
+    regexp: OPTIONS=.*
+    replace: OPTIONS="--selinux-enabled --log-driver=journald --signature-verification=false --bip={{ docker_bip }} --storage-opt dm.loopdatasize={{ docker_data_size }} --storage-opt dm.loopmetadatasize={{ docker_meta_size }} --storage-opt dm.basesize={{ docker_base_size }}"
+    backup: no
+  notify:
+    - stop service
+    - rm docker_fodler
+    - start service
+

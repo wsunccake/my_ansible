@@ -1,0 +1,9 @@
+---
+# tasks file for kubernetes
+- fail:
+    msg: OS don't support
+  when:
+    - ansible_distribution not in os_distro
+
+- include: '{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml'
+
