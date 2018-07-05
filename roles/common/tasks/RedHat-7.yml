@@ -92,3 +92,13 @@
       state=started
   ignore_errors: true
   when: selinux_config.changed
+
+- name: set utc timezone
+  command: timedatectl set-timezone UTC
+
+- name: sync time
+  command: chronyc makestep
+
+- name: write system clock
+  command: hwclock -w
+    

@@ -1,7 +1,8 @@
 ---
-- hosts: all
+- hosts: deploy
   become: yes
   become_method: su
+  tags: fresh_install
   roles:
     - common
 
@@ -12,14 +13,14 @@
   roles:
     - kubernetes
 
-- hosts: deploy
+- hosts: app
   become: yes
   become_method: su
-  tags: deploy
+  tags: app_deploy
   roles:
     - ansible
 #    - python3
-#    - docker
+    - docker
 #    - cobbler
 #    - lxc
 #    - sqlite
@@ -40,6 +41,7 @@
 - hosts: my_config
   become: no
   tags: my_config
+  gather_facts: no
   roles:
     - my_config
 

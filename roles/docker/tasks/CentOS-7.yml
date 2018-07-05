@@ -6,14 +6,16 @@
   with_items:
     - python2-pip
     - docker
+    - docker-compose
 
 - replace:
     dest: /etc/sysconfig/docker
     regexp: OPTIONS=.*
-    replace: OPTIONS="--selinux-enabled --log-driver=journald --signature-verification=false --bip={{ docker_bip }} --storage-opt dm.loopdatasize={{ docker_data_size }} --storage-opt dm.loopmetadatasize={{ docker_meta_size }} --storage-opt dm.basesize={{ docker_base_size }}"
+    replace: OPTIONS="--selinux-enabled --log-driver=journald --signature-verification=false --bip {{ docker_bip }} -G dockerroot"
+#    replace: OPTIONS="--selinux-enabled --log-driver=journald --signature-verification=false --bip={{ docker_bip }} --storage-opt dm.loopdatasize={{ docker_data_size }} --storage-opt dm.loopmetadatasize={{ docker_meta_size }} --storage-opt dm.basesize={{ docker_base_size }}"
     backup: no
   notify:
     - stop service
-    - rm docker_fodler
+#    - rm docker_fodler
     - start service
 
