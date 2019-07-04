@@ -1,0 +1,33 @@
+---
+# tasks file for munge
+
+- name: install munge
+  yum:
+    name:
+      - munge
+    state: present
+
+- name: copy munge key
+  copy:
+    src: munge.key
+    dest: /etc/munge/munge.key
+    group: munge
+    owner: munge
+    mode: 0600
+
+- name: run munge server
+  service:
+    name: munge
+    state: restarted
+    enabled: yes
+
+- name: install munge devel
+  yum:
+    name:
+      - munge-libs
+      - munge-devel
+    state: present
+  when:
+    - munge_role|default(None) == 'build'
+  ignore_errors: yes
+

@@ -1,0 +1,48 @@
+---
+- hosts: build_package
+  become: yes
+  become_method: su
+  tags: build package
+  gather_facts: no
+  vars:
+    - slurm_role: developer
+  roles:
+    - common
+    - munge
+    - slurm
+
+- hosts: front_end
+  become: yes
+  become_method: su
+  tags: front end
+  gather_facts: no
+  vars:
+    - chrony_role: server
+    - nis_role: server
+    - nfs_role: server
+    - slurm_role: server
+  roles:
+    - common
+    - chrony
+    - munge
+    - nis
+    - nfs
+    - slurm
+
+- hosts: back_end
+  become: yes
+  become_method: su
+  tags: back end
+  gather_facts: no
+  vars:
+    - chrony_role: client
+    - nis_role: client
+    - nfs_role: client
+    - slurm_role: cleint
+  roles:
+    - common
+    - chrony
+    - munge
+    - nis
+    - nfs
+    - slurm

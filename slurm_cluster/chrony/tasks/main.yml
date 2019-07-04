@@ -1,0 +1,45 @@
+---
+# tasks file for chrony
+
+- name: install chrony
+  yum:
+    name:
+      - chrony
+    state: present
+  notify:
+    - run chrony server
+
+- name: config chrony for client
+  template:
+    src: chrony_client.conf.j2
+    dest: /etc/chrony.conf
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  when:
+    - chrony_role|default(None) == 'client'
+
+- name: config chrony for server
+  template:
+    src: chrony_server.conf.j2
+    dest: /etc/chrony.conf
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  when:
+    - chrony_role|default(None) == 'server'
+
+- name: run chrony
+  service:
+    name: chronyd
+    state: restarted
+    enabled: yes
+
+- name: run makestep
+  shell: chronyc -a makestep
+
+- name: run brust
+  shell: chronyc -a 'burst 4/4'
+

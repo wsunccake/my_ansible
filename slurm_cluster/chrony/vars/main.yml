@@ -1,0 +1,7 @@
+---
+# vars file for chrony
+
+ntp_server: 192.168.28.190
+subnet: 192.168.0.0
+mask: 16
+

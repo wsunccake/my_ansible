@@ -1,0 +1,68 @@
+---
+# tasks file for nis
+
+- name: config network
+  template:
+    src: network.j2
+    dest: /etc/sysconfig/network
+    group: root
+    owner: root
+    mode: 0644
+    backup: yes
+
+# ypserv
+- name: install ypserv
+  yum:
+    name:
+      - ypserv
+    state: present
+  when:
+    - nis_role == 'server'
+
+- name: config ypserv
+  template:
+    src: ypserv.conf.j2
+    dest: /etc/ypserv.conf
+    group: root
+    owner: root
+    mode: 0644
+    backup: yes
+  when:
+    - nis_role == 'server'
+
+- name: run ypserv
+  service:
+    name: ypserv
+    state: restarted
+    enabled: yes
+  when:
+    - nis_role == 'server'
+
+# ypbind
+- name: install ypbind
+  yum:
+    name:
+      - ypbind
+    state: present
+  when:
+    - nis_role == 'client'
+
+- name: config ypbind
+  template:
+    src: yp.conf.j2
+    dest: /etc/yp.conf
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  when:
+    - nis_role == 'client'
+
+- name: run ypbind server
+  service:
+    name: ypbind
+    state: restarted
+    enabled: yes
+  when:
+    - nis_role == 'client'
+

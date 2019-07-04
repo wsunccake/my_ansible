@@ -1,0 +1,12 @@
+---
+# tasks file for nfs
+
+- name: install nfs
+  yum:
+    name:
+      - nfs-utils
+    state: present
+  notify:
+    - run nfs server
+  when:
+    - nfs_role == 'server'

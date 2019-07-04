@@ -1,0 +1,12 @@
+---
+- name: install slurm for server
+  yum:
+    name: /tmp/{{ item }}
+    state: present
+  with_items: "{{ slurm_server_rpms }}"
+
+- name: run slurm contrller
+  service:
+    name: slurmctld
+    state: restarted
+    enabled: yes

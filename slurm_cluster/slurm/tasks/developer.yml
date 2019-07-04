@@ -1,0 +1,34 @@
+---
+- name: install mariadb
+  yum:
+    name:
+      - mariadb
+    state: present
+
+- name: depend package
+  yum:
+    name:
+      - mariadb-devel
+      - pam-devel
+      - readline-devel
+      - perl-ExtUtils-MakeMaker
+    state: present
+
+- name: check slurm tarball
+  stat:
+    path: /tmp/{{ slurm_tarball }}
+  register: is_tarball_exist
+
+- name: download slurm tarball
+  copy:
+    shell: wget {{ slurm_url }} -O /tmp/{{ slurm_tarball }}
+  when: is_tarball_exist == False
+
+# - name: copy slurm tarball
+#   copy:
+#     src: "{{ slurm_tarball }}"
+#     dest: /tmp/{{ slurm_tarball }}
+#   when: is_tarball_exist == False
+
+- name: build slurm rpm
+  shell: rpmbuild -ta /tmp/{{ slurm_tarball }}

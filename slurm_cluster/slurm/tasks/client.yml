@@ -1,0 +1,6 @@
+---
+- name: install slurm for client
+  yum:
+    name: /tmp/{{ item }}
+    state: present
+  with_items: "{{ slurm_client_rpms }}"

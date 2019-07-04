@@ -1,0 +1,71 @@
+---
+- name: install mariadb
+  yum:
+    name:
+      - mariadb
+    state: present
+  when:
+    - (slurm_role|default(None) == 'developer') or (slurm_role|default(None) == 'server')
+
+- name: copy slurm rpm
+  copy:
+    src: "{{ item }}"
+    dest: /tmp/{{ item }}
+  with_items: "{{ slurm_rpms }}"
+  when:
+    - (slurm_role|default(None) == 'server') or (slurm_role|default(None) == 'client')
+
+- name: add slurm group
+  shell: /usr/sbin/groupadd -r slurm
+  ignore_errors: yes
+  when:
+    - (slurm_role|default(None) == 'server') or (slurm_role|default(None) == 'client')
+
+- name: add slurm user
+  shell: /usr/sbin/useradd -r -g slurm -s /usr/sbin/nologin slurm
+  ignore_errors: yes
+  when:
+    - (slurm_role|default(None) == 'server') or (slurm_role|default(None) == 'client')
+
+- name: create /etc/slurm
+  file:
+    path: /etc/slurm
+    state: directory
+    mode: '0755'
+    owner: root
+    group: root
+  when:
+    - (slurm_role|default(None) == 'server') or (slurm_role|default(None) == 'client')
+
+- name: copy slurm config
+  copy:
+    src: slurm.conf
+    dest: /etc/slurm/slurm.conf
+    group: slurm
+    owner: slurm
+    mode: 0640
+  when:
+    - (slurm_role|default(None) == 'server') or (slurm_role|default(None) == 'client')
+
+- name: create /var/spool/slurm
+  file:
+    path: /var/spool/slurm
+    state: directory
+    mode: '0755'
+    owner: slurm
+    group: slurm
+  when:
+    - (slurm_role|default(None) == 'server') or (slurm_role|default(None) == 'client')
+
+- name: run developer
+  include: developer.yml
+  when: slurm_role|default(None) == 'developer'
+
+- name: run server
+  include: server.yml
+  when: slurm_role|default(None) == 'server'
+
+- name: run client
+  include: client.yml
+  when: slurm_role|default(None) == 'client'
+

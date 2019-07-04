@@ -1,0 +1,27 @@
+---
+# tasks file for common
+
+- name: install epel
+  yum:
+    name: epel-release
+    state: present
+  notify:
+    - run yum makecache
+
+- name: disable selinux
+  file:
+    src: config
+    dest: /etc/selinux/config
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+
+# - name: add hosts
+#   file:
+#     src: hosts
+#     dest: /etc/hosts
+#     owner: root
+#     group: root
+#     mode: 0644
+#     backup: yes
